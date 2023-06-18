@@ -1,0 +1,53 @@
+services:
+
+  postgres:
+    image: postgres:14.8
+    restart: always
+    environment:
+      - POSTGRES_USER=cloud
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=cloud
+      - TZ=America/Mexico_City
+    ports:
+      - '7000:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./database/initdb.sql:/docker-entrypoint-initdb.d/create_table.sql
+
+  api:
+    container_name: api_cloud
+    restart: always
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - 3090:3090
+    links:
+      - postgres
+
+#   emqx-broker:
+#     image: emqx:5.0
+#     container_name: broker_cloud
+#     environment:
+#     - "EMQX_NODE_NAME=emqx@node1.emqx.io"
+#     healthcheck:
+#       test: ["CMD", "/opt/emqx/bin/emqx_ctl", "status"]
+#       interval: 5s
+#       timeout: 25s
+#       retries: 5
+# #    networks:
+# #      emqx-bridge:
+# #        aliases:
+# #        - node1.emqx.io
+#     ports:
+#       - 1883:1883
+#       - 8083:8083
+#       - 8084:8084
+#       - 8883:8883
+#       - 18083:18083
+#     links:
+#       - api
+
+volumes:
+  db:
+    driver: local

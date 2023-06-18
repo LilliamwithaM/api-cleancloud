@@ -1,0 +1,27 @@
+{
+  "name": "clean-cloud",
+  "version": "1.0.0",
+  "description": "App using a MQTT Broker and an API REST",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "lint": "eslint",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "pg": "^8.11.0",
+    "promise-mysql": "^5.2.0"
+  }
+}
